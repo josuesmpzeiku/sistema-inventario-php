@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@300&display=swap');
+body {
+    
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0px;    
+}
+.titulo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    text-shadow: 4px 4px 4px rgb(169, 175, 126);
+    text-align: center;
+}
+.numf{
+    font-size: 7px;
+}
+.titulo2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    text-shadow: 4px 4px 4px rgb(169, 175, 126);
+    text-align: center;
+}
+.fila{
+    display: flex;   
+    justify-content:center;
+    align-items:flex-start;
+    padding: 5px;
+    box-sizing:border-box;
+}
+.contenedor{
+    display: flex;   
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    width: 100%;
+    padding: 5px;
+}
+.tabla{    
+    width: 700px;
+    height: 695px;
+    display: flex;   
+    align-items:flex-start;    
+    justify-content:center;
+    padding: 10px;
+}
+.TablaM{	
+	width: 100%;
+        border-collapse:collapse!important;
+}
+.TablaM td{
+	vertical-align:middle;   
+        padding-left: 5px;
+        padding-right: 5px;
+}
+
+.TablaA{	
+	width:100%;	
+	border:3px solid #003273;        
+        border-collapse:collapse!important;
+        height: 300px;      
+}	
+.TablaA td{
+	vertical-align:top; 
+        padding:10px;
+        
+}
+.TablaA tr:last-child td{
+   vertical-align: bottom;
+}
+
+.TablaP{	
+	width:100%;	
+	border:1px solid #000;
+        border-collapse:collapse!important;
+}	
+.TablaP td{
+	vertical-align:middle;       
+	border:1px solid #000;
+	border-width:1px 1px 1px 1px;      
+        padding-left: 5px;
+        padding-right: 5px;
+}
+
+.TablaB{	
+	width:100%;	
+	border:1px solid #003273;
+        border-collapse:collapse!important;
+}	
+.TablaB td{
+	vertical-align:middle;       
+	border:1px solid #003273;
+	border-width:1px 1px 1px 1px; 
+        text-align:center; 
+        padding-left: 3px;
+        padding-right: 3px;
+}
+.TablaB tr:first-child td{
+        background-color: #003273; 
+	text-align:center;       
+        font-weight: bold;
+        color: white;
+}
+
+.tabla2{    
+    width: 450px;
+    height: 590px;
+    display: flex;   
+    align-items:flex-start;    
+    justify-content:center;
+    padding: 5px;
+}
+.TablaM2{	
+	width: 100%;
+        border-collapse:collapse!important;
+        color: #003273;        
+}
+.TablaM2 td{	
+        padding-left: 3px;
+        padding-right: 3px;
+        font-size: 11px; 
+        color: #003273;
+}
+
+.TablaA2{
+        background-color: transparent;
+	width:100%;
+        border-collapse:collapse!important; 
+        background-image: url("fondo.png");
+}	
+.TablaA2 td{
+	vertical-align:middle; 
+        padding-left: 5px;
+        text-align: left;
+}
+.TablaA2 td:first-child { 	    
+        font-weight: bold;
+}
+
+.TablaP2{	
+	width:100%;
+        border-collapse:collapse!important;
+        border:1px solid #000;
+}
+.TablaP2 td{
+	vertical-align:middle; 
+        padding-left: 5px;
+        padding-right: 5px;
+        border:1px solid #000;
+}
+.TablaP2 tr:first-child td{
+	text-align:center;       
+        font-weight: bold;
+}
+.TablaP2 tr:last-child td{
+    text-align:center;       
+    font-weight: bold;
+}
+.TablaM3{	
+	width: 100%;
+        border-collapse:collapse!important;
+        color: #003273;        
+}
+.TablaM3 td{	
+        padding-left: 3px;
+        padding-right: 3px;
+        font-size: 18px; 
+        color: #003273;
+}
+.tabla3{    
+    width: 800px;
+    height: 950px;
+    display: flex;   
+    align-items:flex-start;    
+    justify-content:center;
+    padding: 5px;
+}
+.btn-universal{     
+    background-color:transparent;
+    color: #003273;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    text-shadow: 4px 4px 4px rgb(169, 175, 126);
+    text-align: center;
+    border: transparent;  
+}
