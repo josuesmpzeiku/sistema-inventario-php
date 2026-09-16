@@ -1,0 +1,5 @@
+RewriteEngine On
+
+# Compatibilidad para instalaciones locales con URL /optica/.
+# La aplicación real se ejecuta desde /optica/public/.
+RewriteRule ^(api|modulos|dashboard|login|deacliente\.php)(/.*)?$ public/index.php [QSA,L]
