@@ -1,0 +1,151 @@
+/* ======================================================================
+   ESTILOS DE PRECISIÓN DE IMPRESIÓN PORCENTUAL COMPROBADA - ÓPTICA MACARIO
+   Ubicación: public/css/impresiones.css
+   ====================================================================== */
+
+.sysomac-print-wrapper {
+    display: none;
+    font-family: Arial, sans-serif;
+    color: #000;
+}
+
+@media print {
+    /* 1. SEPARACIÓN ABSOLUTA: Ocultamos de golpe el sistema operativo web comercial completo */
+    .sidebar, .main-content-header, .tabs-excel-container, 
+    .form-group-row, .form-actions-toolbar, .optometry-table, 
+    .form-divider, .optometry-title, .alert-network, #network-alert,
+    .tab-excel-panel, #panel-ventas-pacientes, #panel-ventas-detalle, #panel-ventas-impresiones {
+        display: none !important;
+    }
+
+    /* Limpieza total de los contenedores raíz del DOM para la cola de impresión */
+    html, body, .main-content, .module-wrapper {
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    @page { 
+        margin: 0; 
+    }
+    /* DESPERTADOR DE LIENZO: Encendemos la envoltura en limpio */
+    .sysomac-print-wrapper {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+    /* REGLA DE ORO GEOMÉTRICA CORREGIDA: 6.5 pulgadas de ancho x 8.5 pulgadas de alto */
+    .sysomac-recetario-card {
+        width: 4.5in !important;
+        height: 8in !important;
+        margin: 0 auto !important; /* Centrado automático impecable en el lienzo del papel */
+        background: #fff !important;
+        padding: 0.25in;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: visible !important;
+        page-break-before: avoid !important;
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+    }
+
+    /* 2. ÁREA DE LOGOTIPOS: ASIGNADO EXACTAMENTE EL 10% DE LA ALTURA TOTAL */
+    .sysomac-header {
+        height: 10% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    .sysomac-logo-zone { width: 0.7in; flex-shrink: 0; }
+    .sysomac-logo-zone img { width: 100%; height: auto; display: block; }
+    .sysomac-text-zone { flex: 1; }
+    .sysomac-text-zone h2 { color: #003273; font-size: 1.1rem; font-weight: bold; margin: 0; text-transform: uppercase; }
+    .sysomac-text-zone h3 { color: #475569; font-size: 0.7rem; font-weight: bold; margin: 1px 0; text-transform: uppercase; }
+    .sysomac-text-zone p { font-size: 0.55rem; margin: 1px 0; line-height: 1.1; }
+
+    /* 3. ÁREA DE METADATOS: ASIGNADO EXACTAMENTE EL 10% DE LA ALTURA TOTAL */
+    .sysomac-meta-section {
+        height: 10% !important;
+        width: 100% !important;
+        font-size: 0.72rem !important;
+        line-height: 1.2 !important;
+        border-bottom: 2px solid #003273 !important;
+        padding-top: 5px;
+        box-sizing: border-box !important;
+    }
+    .sysomac-meta-right { float: right; font-weight: bold; }
+    .sysomac-meta-left { float: left; }
+    .sysomac-meta-section::after { content: ""; display: block; clear: both; }
+
+    /* 4. ÁREA DE GRADUACIONES: ASIGNADO EXACTAMENTE EL 10% DE LA ALTURA TOTAL */
+    .sysomac-table-lens {
+        height: 10% !important;
+        width: 100% !important;
+        border-collapse: collapse !important;
+        box-sizing: border-box !important;
+    }
+    .sysomac-table-lens th { 
+        background-color: #003273 !important; color: #fff !important; 
+        -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; 
+        font-size: 0.7rem !important; font-weight: bold !important; padding: 3px !important; border: 1px solid #000 !important; text-align: center !important; 
+    }
+    .sysomac-table-lens td { padding: 3px !important; border: 1px solid #000 !important; text-align: center !important; font-size: 0.72rem !important; }
+
+    /* 5. BÚNKER CLÍNICO: ASIGNADO EXACTAMENTE EL 50% DE LA ALTURA TOTAL */
+    .sysomac-box-clinical {
+        height: 50% !important;
+        width: 100% !important;
+        border: 2px solid #003273 !important;
+        border-radius: 4px !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+        margin: 5px 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important; /* ANCLA PATOLOGÍA ARRIBA Y CITA ABAJO EN EL BLOCK */
+    }
+    .sysomac-rx-container {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 3px !important;
+        margin: 5px 0 !important;
+        overflow: hidden !important;
+        font-size: 0.7rem !important;
+        line-height: 1.1 !important;
+    }
+    .sysomac-box-clinical p { font-size: 0.75rem !important; margin: 0 !important; }
+    .sysomac-divider { height: 1px !important; background-color: #cbd5e1 !important; margin: 4px 0 !important; }
+
+    /* 6. ÁREA DE SUCURSALES Y ESLÓGANES: ASIGNADO EXACTAMENTE EL 20% DE LA ALTURA */
+    .sysomac-footer {
+        height: 20% !important;
+        width: 100% !important;
+        text-align: center !important;
+        line-height: 1.2 !important;
+        padding-top: 5px;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important; /* COLOCO TODO AL RAS DEL BORDE INFERIOR */
+    }
+    .sysomac-slogan { color: #475569 !important; letter-spacing: 0.5px !important; margin: 0 !important; font-size: 0.68rem !important; }
+    .sysomac-slogan-bold { font-weight: bold !important; color: #003273 !important; margin: 1px 0 !important; font-size: 0.72rem !important; }
+    .sysomac-notice { font-size: 0.58rem !important; color: #475569 !important; margin: 2px 0 !important; font-style: italic !important; }
+    .sysomac-branches-grid { 
+        display: grid !important; grid-template-columns: repeat(2, 1fr) !important; gap: 2px 4px !important; 
+        font-size: 0.52rem !important; text-align: left !important; margin-top: 3px !important; color: #334155 !important; overflow: hidden !important;
+    }
+}
