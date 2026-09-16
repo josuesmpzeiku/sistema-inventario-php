@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Permitir archivos y carpetas reales: CSS, JS, imágenes, favicon, etc.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Enviar las demás rutas al enrutador principal
+RewriteRule ^ index.php [QSA,L]
