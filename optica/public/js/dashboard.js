@@ -16,12 +16,44 @@ document.addEventListener('DOMContentLoaded', () => {
             event.stopPropagation();
             sidebar.classList.toggle('open');
         });
+        if (mainContent) mainContent.addEventListener('click', () => sidebar.classList.remove('open'));
+    }
 
-        if (mainContent) {
-            mainContent.addEventListener('click', () => {
-                sidebar.classList.remove('open');
-            });
-        }
+    const limpiarDiagnosticoSesion = () => {
+        if (!contenedorModulo) return;
+        contenedorModulo.querySelectorAll('.contenedor-transparente, pre').forEach((elemento) => {
+            if (elemento.closest('#panel-biometria') || elemento.classList.contains('contenedor-transparente')) elemento.remove();
+        });
+    };
+
+    const sincronizarNombrePaciente = () => {
+        if (!contenedorModulo) return;
+        const destino = contenedorModulo.querySelector('#b_bio_paciente_nombre');
+        if (!destino) return;
+
+        const fuentes = [
+            '#c_opto_paciente_nombre',
+            '#m_receta_paciente_nombre',
+            '#k_cierre_paciente_nombre',
+            '#lbl_nompaciente'
+        ];
+        const fuente = fuentes.map((selector) => contenedorModulo.querySelector(selector))
+            .find((elemento) => elemento && elemento.textContent.trim() && elemento.textContent.trim() !== '---');
+
+        destino.textContent = fuente ? fuente.textContent.trim() : '---';
+    };
+
+    const observarModulo = () => {
+        limpiarDiagnosticoSesion();
+        sincronizarNombrePaciente();
+    };
+
+    if (contenedorModulo && window.MutationObserver) {
+        new MutationObserver(observarModulo).observe(contenedorModulo, {
+            childList: true,
+            subtree: true,
+            characterData: true
+        });
     }
 
     const cargarScriptUnaVez = (id, archivo, inicializar) => {
@@ -45,13 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const respuesta = await fetch(`${APP_BASE}${ruta}`);
             if (!respuesta.ok) throw new Error(`Error HTTP ${respuesta.status}`);
-
             if (contenedorModulo) {
                 contenedorModulo.innerHTML = await respuesta.text();
-                // Elimina cualquier bloque de diagnóstico que haya quedado en una vista.
-                contenedorModulo.querySelectorAll('.contenedor-transparente').forEach((elemento) => elemento.remove());
+                observarModulo();
             }
-
             cargarScriptUnaVez(scriptId, archivo, inicializador);
         } catch (error) {
             console.error(`Fallo al cargar ${ruta}:`, error);
@@ -60,14 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     menuItems.forEach((item) => {
         item.style.cursor = 'pointer';
-
         item.addEventListener('click', async function () {
             menuItems.forEach((menuItem) => menuItem.classList.remove('active'));
             this.classList.add('active');
-
             const moduloSeleccionado = this.getAttribute('data-module');
             if (tituloModulo) tituloModulo.textContent = moduloSeleccionado;
-            if (sidebar && sidebar.classList.contains('open')) sidebar.classList.remove('open');
+            if (sidebar) sidebar.classList.remove('open');
 
             if (moduloSeleccionado === 'Admisión') {
                 await cargarModulo('/modulos/admision', 'script-modulo-admision', 'admision.js', () => {
@@ -75,21 +102,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 return;
             }
-
             if (moduloSeleccionado === 'Consultorio') {
                 await cargarModulo('/modulos/consultorio', 'script-modulo-consultorio', 'consultorio.js', () => {
                     if (typeof inicializarModuloConsultorio === 'function') inicializarModuloConsultorio();
                 });
                 return;
             }
-
             if (moduloSeleccionado === 'Ventas') {
                 await cargarModulo('/modulos/ventas', 'script-modulo-ventas', 'ventas.js', () => {
                     if (typeof inicializarModuloVentas === 'function') inicializarModuloVentas();
                 });
                 return;
             }
-
             if (contenedorModulo) {
                 contenedorModulo.innerHTML = `<h3>Módulo de ${moduloSeleccionado}</h3><p>Espacio en preparación.</p>`;
             }
@@ -100,19 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnLogout) {
         btnLogout.onclick = async () => {
             if (!confirm('¿Desea salir del sistema de forma segura?')) return;
-
             try {
                 const respuesta = await enviarPeticionAsincrona(`${APP_BASE}/api/logout`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' }
                 });
                 const resultado = await respuesta.json();
-
-                if (resultado.success) {
-                    window.location.href = `${APP_BASE}/login`;
-                } else {
-                    alert(resultado.error || 'No se pudo cerrar la sesión.');
-                }
+                if (resultado.success) window.location.href = `${APP_BASE}/login`;
+                else alert(resultado.error || 'No se pudo cerrar la sesión.');
             } catch (error) {
                 console.error('Fallo crítico en cierre de sesión:', error);
                 alert('No se pudo conectar con el servidor para cerrar la sesión.');
